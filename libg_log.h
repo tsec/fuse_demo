@@ -12,6 +12,8 @@ extern "C"
 {
 #endif
 
+char *basename(char *path);
+
 #define libg_log_init(TAG, LOG_LEVEL)	openlog(TAG, LOG_CONS | LOG_PERROR | LOG_PID, LOG_USER);setlogmask(LOG_UPTO(LOG_LEVEL))
 
 #define libg_log_debug(fmt, arg...)		syslog(LOG_DEBUG, "<%s:%u>: " fmt "", basename(__FILE__), __LINE__, ##arg)
@@ -19,6 +21,8 @@ extern "C"
 #define libg_log_notice(fmt, arg...)	syslog(LOG_NOTICE, "<%s:%u>: " fmt "", basename(__FILE__), __LINE__, ##arg)
 #define libg_log_warning(fmt, arg...)	syslog(LOG_WARNING, "<%s:%u>: " fmt "", basename(__FILE__), __LINE__, ##arg)
 #define libg_log_err(fmt, arg...)		syslog(LOG_ERR, "<%s:%u>: " fmt "", basename(__FILE__), __LINE__, ##arg)
+
+int libg_log_create();
 
 #ifdef __cplusplus
 }

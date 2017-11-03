@@ -14,11 +14,6 @@ extern "C"
 #endif
 
 
-struct FileNode
-{
-	char name[64];
-	
-};
 
 #ifdef __cplusplus
 }
