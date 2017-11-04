@@ -1,11 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include "threadqueue.h"
-
+#include "libg_queue.h"
+#include "libg_log.h"
 static inline struct msglist *get_msglist(struct threadqueue *queue)
 {
     struct msglist *tmp;

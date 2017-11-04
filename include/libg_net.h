@@ -11,7 +11,7 @@ extern "C"
 {
 #endif
 
-int ligb_net_get_mac(char *mac);
+int libg_net_get_mac(char *mac);
 
 #ifdef __cplusplus
 }

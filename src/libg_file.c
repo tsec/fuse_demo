@@ -1,17 +1,5 @@
-/***********************************************************************
-*   Copyright (C) 2016 pilot-lab.inc All rights reserved.
-*   
-*   @file:       file.c
-*   @brief:      
-*   @author:     Pilot labs
-*   @maintainer: frank.fu@pilot-lab.com.cn
-*   @version:    1.0
-*   @date:       2016-05-06
-*   
-***********************************************************************/
-#include "file.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "libg_file.h"
+#include "libg_log.h"
 
 #define FILECREAT(path, mode) 			creat((path), (mode))
 #define FILEOPEN(path, flag, mode)  	open((path), (flag), (mode))
@@ -225,37 +213,3 @@ int file_clear(const char* pcPath)
 	return 0;
 }
 
-
-
-
-#if 0
-static char* pc = "test.txt";
-
-int main(int argc, char** argv)
-{
-	int nFd = -1;
-	char acBuf[256] = {0};
-
-	if (!file_probe(pc))
-		nFd = file_create(pc, 0666);
-	printf("create file fd=%d\n", nFd);
-
-	if (0 != file_is_exist(pc))
-		nFd = file_create_default(pc);
-	printf("create default file fd=%d\n", nFd);
-
-	nFd = file_open_r(pc);
-	printf("file_open_r fd=%d\n", nFd);
-	printf("file_read count=%d\n", (int)file_read(nFd, acBuf, 256));
-	file_close(nFd);
-
-	nFd = file_open_w(pc);
-	printf("file_open_w fd=%d\n", nFd);
-	printf("file_write count=%d\n", (int)file_write(nFd, acBuf, 256));
-	file_close(nFd);
-
-	file_clear(pc);
-
-	return 0;
-}
-#endif

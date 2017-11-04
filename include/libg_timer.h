@@ -1,5 +1,6 @@
-#ifndef _TIMER_H
-#define _TIMER_H
+#ifndef _LIBG_TIMER_H
+#define _LIBG_TIMER_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -7,9 +8,6 @@
 #include <stdbool.h>
 #include <signal.h>
 #include <time.h>
-
-extern timer_t toStandby;
-extern timer_t toIdle;
 
 int createTimer(timer_t *timer, void (*handle)(union sigval v));
 int startTimer(timer_t *timer, time_t sec);

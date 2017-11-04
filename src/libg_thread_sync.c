@@ -1,19 +1,20 @@
-#include "thread_sync.h"
+#include "libg_thread_sync.h"
+#include "libg_log.h"
 
-int sync_init(struct thread_sync *sync, int nCnt)
+int libg_thread_sync_init(struct libg_thread_sync *sync, int cnt)
 {
 	pthread_mutex_init(&(sync->mutex), NULL);
 	pthread_cond_init(&(sync->cond), NULL);
-	sync->nCnt = nCnt;
+	sync->cnt = cnt;
 	return 0;
 }
 
-int sync_wait(struct thread_sync *sync)
+int libg_thread_sync_wait(struct libg_thread_sync *sync)
 {
 	pthread_mutex_lock(&(sync->mutex));
-	sync->nCnt--;
+	sync->cnt--;
 	
-	if(sync->nCnt != 0)
+	if(sync->cnt != 0)
 	{
 		pthread_cond_wait(&(sync->cond), &(sync->mutex));
 	}
@@ -25,7 +26,7 @@ int sync_wait(struct thread_sync *sync)
 	return 0;
 }
 
-int sync_destory(struct thread_sync *sync)
+int libg_thread_sync_destory(struct libg_thread_sync *sync)
 {
 	pthread_mutex_destroy(&(sync->mutex)); 
 	pthread_cond_destroy(&(sync->cond));

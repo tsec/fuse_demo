@@ -1,16 +1,6 @@
-/***********************************************************************
-*   Copyright (C) 2016 pilot-lab.inc All rights reserved.
-*   
-*   @file:       file.h
-*   @brief:      
-*   @author:     Pilot labs
-*   @maintainer: frank.fu@pilot-lab.com.cn
-*   @version:    1.0
-*   @date:       2016-05-06
-*   
-***********************************************************************/
-#ifndef _FILE_H
-#define _FILE_H
+#ifndef _LIBG_FILE_H
+#define _LIBG_FILE_H
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -151,4 +141,4 @@ int file_clear(const char* pcPath);
 #ifdef __cplusplus
 }
 #endif
-#endif // _FILE_H
+#endif

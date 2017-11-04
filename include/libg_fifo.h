@@ -1,5 +1,5 @@
-#ifndef _GFIFO_H_
-#define _GFIFO_H_
+#ifndef _LIBG_FIFO_H
+#define _LIBG_FIFO_H
 
 #include <stdio.h>
 #include <string.h>

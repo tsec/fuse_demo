@@ -1,6 +1,12 @@
 #ifndef _THREADQUEUE_H_
 #define _THREADQUEUE_H_ 1
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <pthread.h>
+#include <sys/time.h>
 #include <pthread.h>
 
 #ifdef __cplusplus

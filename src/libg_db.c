@@ -1,15 +1,5 @@
-/***********************************************************************
-*   Copyright (C) 2016 pilot-lab.inc All rights reserved.
-*   
-*   @file:       database.c
-*   @brief:      
-*   @author:     Pilot labs
-*   @maintainer: lawson.guo@pilot-lab.com.cn
-*   @version:    1.0
-*   @date:       2016-09-14
-*   
-***********************************************************************/
-#include "database.h"
+#include "libg_db.h"
+#include "libg_log.h"
 
 sqlite3 *db_open(char *pcDB)
 {

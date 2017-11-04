@@ -1,16 +1,5 @@
-/***********************************************************************
-*   Copyright (C) 2016 pilot-lab.inc All rights reserved.
-*   
-*   @file:       database.h
-*   @brief:      
-*   @author:     Pilot labs
-*   @maintainer: lawson.guo@pilot-lab.com.cn
-*   @version:    1.0
-*   @date:       2016-09-14
-*   
-***********************************************************************/
-#ifndef _DATABASE_H
-#define _DATABASE_H
+#ifndef _LIBG_DB_H
+#define _LIBG_DB_H
 #ifdef __cplusplus
 extern "C"
 {
@@ -30,4 +19,5 @@ int db_close(sqlite3 *psDB);
 #ifdef __cplusplus
 }
 #endif
-#endif // _DATABASE_H
+
+#endif

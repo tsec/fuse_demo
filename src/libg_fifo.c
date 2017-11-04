@@ -1,5 +1,5 @@
-#include "gfifo.h"
-
+#include "libg_fifo.h"
+#include "libg_log.h"
 /*
  * internal helper to calculate the unused elements in a fifo
  */

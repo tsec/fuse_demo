@@ -1,23 +1,29 @@
-#ifndef _THREAD_SYNC_H_
-#define _THREAD_SYNC_H_
+#ifndef _LIBG_THREAD_SYNC_H
+#define _LIBG_THREAD_SYNC_H
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <pthread.h>
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-struct thread_sync
+struct libg_thread_sync
 {
 	pthread_mutex_t mutex;
 	pthread_cond_t cond;
-	int nCnt;
+	int cnt;
 };
 
-int sync_init(struct thread_sync *sync, int nCnt);
+int libg_thread_sync_init(struct libg_thread_sync *sync, int cnt);
+int libg_thread_sync_wait(struct libg_thread_sync *sync);
+int libg_thread_sync_destory(struct libg_thread_sync *sync);
 
-int sync_wait(struct thread_sync *sync);
-
-int sync_destory(struct thread_sync *sync);
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

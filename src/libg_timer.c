@@ -1,7 +1,5 @@
-#include "timer.h"
-
-timer_t toStandby;
-timer_t toIdle;
+#include "libg_timer.h"
+#include "libg_log.h"
 
 int createTimer(timer_t *timer, void (*handle)(union sigval v))
 {
