@@ -5,15 +5,25 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdbool.h>
+
 #include "libg_fs.h"
 #include "libg_log.h"
+#include "libg_fifo.h"
+#include "libg_file.h"
+#include "libg_proc.h"
+#include "libg_queue.h"
+#include "libg_thread_sync.h"
+#include "libg_timer.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+#define LIBG_ROOT	"/tmp/libg"
+typedef void *(*USER_MAIN)(void *arg);
 
+int libg_init();
 
 #ifdef __cplusplus
 }

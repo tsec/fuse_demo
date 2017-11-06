@@ -23,6 +23,7 @@ export STAGING_DIR=/home/guolicun/work/moorebot/allwinner_develop/tina/staging_d
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <pthread.h>
 
 #include "libg.h"
 
@@ -85,7 +86,7 @@ static int libg_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
 static int libg_open(const char *path, struct fuse_file_info *fi)
 {
-	libg_log_info("%s\n", path);
+	libg_log_info("libg_open %s", path);
 
 	/*	if (strcmp(path, libg_path) != 0)
 	return -ENOENT;
@@ -99,7 +100,7 @@ static int libg_open(const char *path, struct fuse_file_info *fi)
 static int libg_read(const char *path, char *buf, size_t size, off_t offset,
 					struct fuse_file_info *fi)
 {
-	libg_log_info("libg_read: %s\n", path);
+	libg_log_info("libg_read: %s", path);
 	GList *node = file_list;
 	char *file_path = strdup(path);
 	for(; NULL != node; node = g_list_next(file_list))
@@ -123,12 +124,9 @@ static int libg_read(const char *path, char *buf, size_t size, off_t offset,
 static int libg_write(const char *path, const char *buf, size_t size,
 					off_t offset, struct fuse_file_info *fi)
 {
-	libg_log_info("libg_write: %s\n", path);
-
-
+	libg_log_info("libg_write: %s", path);
 	GList *node = file_list;
 	char *file_path = strdup(path);
-	libg_log_info("libg_write: %s\n", basename(file_path));
 
 	for(; NULL != node; node = g_list_next(file_list))
 	{
@@ -156,9 +154,83 @@ static struct fuse_operations libg_oper = {
 	.write		= libg_write,
 };
 
+int libg_main()
+{
+	int argc = 3;
+	char *argv[3];
+	
+	char argv0[255];
+	char argv1[255];
+	char argv2[255];
+
+	argv[0] = argv0;
+	argv[1] = argv1;
+	argv[2] = argv2;
+
+	sprintf(argv0, "%s", libg_get_process_name());
+	sprintf(argv1, "-f");
+	sprintf(argv2, "%s/%s", LIBG_ROOT, libg_get_process_name());
+
+	if(0 != access(argv[2], F_OK))
+	{
+		if(0 != access(LIBG_ROOT, F_OK))
+		{
+			int status = mkdir(LIBG_ROOT, S_IRWXU | S_IRWXG | S_IROTH);
+			if(status != 0)
+			{
+				libg_log_err("mkdir %s failed!", LIBG_ROOT);
+				return -1;
+			}
+		}
+
+		int status = mkdir(argv2, S_IRWXU | S_IRWXG | S_IROTH);
+		if(status != 0)
+		{
+			libg_log_err("mkdir %s failed!", argv2);
+			return -1;
+		}
+	}
+	int ret = fuse_main(argc, argv, &libg_oper, NULL);
+	libg_log_info("fuse_main exit[%d]!", ret);
+	return 0;
+}
+
+int libg_init(USER_MAIN user_main)
+{
+	libg_log_init(libg_get_process_name(), LOG_INFO);
+	libg_log_create();
+
+	if(user_main)
+	{
+		int ret = 0;
+		pthread_t tid;
+
+		ret = pthread_create(&tid, NULL, user_main, NULL);
+		if(ret != 0)
+		{
+			libg_log_err("do_main failed[%d: %s]!", ret, strerror(ret));
+			return -1;
+		}
+	}
+	return 0;
+}
+
+#if 0
+void *user_main(void *arg)
+{
+	while(1)
+	{
+		sleep(1);
+		libg_log_info("user_main while");
+	}
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
-	libg_log_init("libg", LOG_INFO);
-	libg_log_create();
-	return fuse_main(argc, argv, &libg_oper, NULL);
+	libg_init(user_main);
+
+	return libg_main();
 }
+
+#endif
