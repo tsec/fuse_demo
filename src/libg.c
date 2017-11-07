@@ -25,7 +25,7 @@ export STAGING_DIR=/home/guolicun/work/moorebot/allwinner_develop/tina/staging_d
 #include <fcntl.h>
 #include <pthread.h>
 
-#include "libg.h"
+#include "libg/libg.h"
 
 extern GList *file_list;
 

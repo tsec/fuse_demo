@@ -1,5 +1,5 @@
-#include "libg_thread_sync.h"
-#include "libg_log.h"
+#include "libg/libg_thread_sync.h"
+#include "libg/libg_log.h"
 
 int libg_thread_sync_init(struct libg_thread_sync *sync, int cnt)
 {

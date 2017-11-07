@@ -1,5 +1,5 @@
-#include "libg_fs.h"
-#include "libg_log.h"
+#include "libg/libg_fs.h"
+#include "libg/libg_log.h"
 
 GList *file_list = NULL;
 static pthread_mutex_t file_mutex = PTHREAD_MUTEX_INITIALIZER;

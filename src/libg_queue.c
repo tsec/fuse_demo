@@ -1,5 +1,5 @@
-#include "libg_queue.h"
-#include "libg_log.h"
+#include "libg/libg_queue.h"
+#include "libg/libg_log.h"
 static inline struct msglist *get_msglist(struct threadqueue *queue)
 {
     struct msglist *tmp;

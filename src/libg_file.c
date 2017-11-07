@@ -1,5 +1,5 @@
-#include "libg_file.h"
-#include "libg_log.h"
+#include "libg/libg_file.h"
+#include "libg/libg_log.h"
 
 #define FILECREAT(path, mode) 			creat((path), (mode))
 #define FILEOPEN(path, flag, mode)  	open((path), (flag), (mode))

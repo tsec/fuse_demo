@@ -3,8 +3,8 @@
 #include <errno.h>
 #include <ctype.h>
 
-#include "libg_proc.h"
-#include "libg_log.h"
+#include "libg/libg_proc.h"
+#include "libg/libg_log.h"
 
 char *libg_get_name_by_pid(pid_t pid)
 {

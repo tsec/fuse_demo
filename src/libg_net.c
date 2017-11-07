@@ -2,8 +2,8 @@
 #include <sys/ioctl.h>
 #include <net/if.h>
 
-#include "libg_net.h"
-#include "libg_log.h"
+#include "libg/libg_net.h"
+#include "libg/libg_log.h"
 
 int libg_net_get_mac(char *mac)
 {

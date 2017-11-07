@@ -1,5 +1,5 @@
-#include "libg_db.h"
-#include "libg_log.h"
+#include "libg/libg_db.h"
+#include "libg/libg_log.h"
 
 sqlite3 *db_open(char *pcDB)
 {
