@@ -62,6 +62,13 @@ void gfifo_reset(struct gfifo *fifo)
 	pthread_mutex_unlock(&(fifo->mutex));
 }
 
+void gfifo_backoff(struct gfifo *fifo, int backoff)
+{
+	pthread_mutex_lock(&(fifo->mutex));
+	fifo->out -= (unsigned int)backoff;
+	pthread_mutex_unlock(&(fifo->mutex));
+}
+
 int gfifo_init(struct gfifo *fifo, void *buffer,
 		unsigned int size, size_t esize)
 {
@@ -162,16 +169,24 @@ unsigned int gfifo_out(struct gfifo *fifo,
 unsigned int gfifo_out_block(struct gfifo *fifo,
 		void *buf, unsigned int len)
 {
-	int nTotal = len;
-	do
+	unsigned int l;
+
+	while(true)
 	{
-		len = len - gfifo_out(fifo, buf + nTotal - len, len);
-		
-		if(len > 0)
+		pthread_mutex_lock(&(fifo->mutex));
+		l = fifo->in - fifo->out;
+		pthread_mutex_unlock(&(fifo->mutex));
+
+		if(l >= len)
+		{
+			gfifo_out(fifo, buf, len);
+			break;
+		}
+		else
 		{
 			usleep(10 * 1000);
 		}
-	}while(len != 0);
+	}
 
 	return len;
 }

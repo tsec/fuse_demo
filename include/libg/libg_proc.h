@@ -14,6 +14,7 @@ extern "C"
 char *libg_get_name_by_pid(pid_t pid);
 pid_t libg_get_pid_by_name(char *task_name);
 char *libg_get_process_name();
+bool libg_judge_process_exist(char *task_name);
 
 #ifdef __cplusplus
 }

@@ -24,6 +24,7 @@ extern "C"
 typedef void *(*USER_MAIN)(void *arg);
 
 int libg_init();
+int libg_main();
 
 #ifdef __cplusplus
 }

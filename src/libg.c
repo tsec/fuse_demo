@@ -158,7 +158,7 @@ int libg_main()
 {
 	int argc = 3;
 	char *argv[3];
-	
+
 	char argv0[255];
 	char argv1[255];
 	char argv2[255];

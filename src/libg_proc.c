@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 #include "libg/libg_proc.h"
 #include "libg/libg_log.h"
@@ -19,9 +20,10 @@ char *libg_get_name_by_pid(pid_t pid)
 	{
 		fscanf(file, "%*s %s", task_name);
 		fclose(file);
+		return task_name;
 	}
 
-	return task_name;
+	return NULL;
 }
 
 pid_t libg_get_pid_by_name(char *task_name)
@@ -50,10 +52,14 @@ pid_t libg_get_pid_by_name(char *task_name)
 
 		pid = strtol(next->d_name, NULL, 0);
 		name = libg_get_name_by_pid(pid);
-		
-        if(strcmp(task_name, name) == 0)
+
+        if((name != NULL) && strcmp(task_name, name) == 0)
         {
 			break;
+        }
+        else
+        {
+			pid = 0;
         }
     }
     closedir(dir) ;
@@ -64,4 +70,10 @@ char *libg_get_process_name()
 {
 	return 	libg_get_name_by_pid(getpid());
 }
+
+bool libg_judge_process_exist(char       *task_name)
+{
+	return libg_get_pid_by_name(task_name) > 0 ? true : false;
+}
+
 

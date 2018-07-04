@@ -171,7 +171,6 @@ int thread_queue_cleanup(struct threadqueue *queue, int freedata)
     pthread_cond_destroy(&queue->cond);
 
     return ret;
-
 }
 
 long thread_queue_length(struct threadqueue *queue)
@@ -182,5 +181,32 @@ long thread_queue_length(struct threadqueue *queue)
     counter = queue->length;
     pthread_mutex_unlock(&queue->mutex);
     return counter;
+}
 
+void thread_queue_release_all(struct threadqueue * queue)
+{
+	struct msglist *firstrec;
+
+	pthread_mutex_lock(&queue->mutex);
+
+	while(queue->first != NULL)
+	{
+		firstrec = queue->first;
+		queue->first = queue->first->next;
+		queue->length--;
+		if(queue->first == NULL)
+		{
+			queue->last = NULL;     // we know this since we hold the lock
+			queue->length = 0;
+		}
+
+		if(firstrec->msg.data)
+		{
+			free(firstrec->msg.data);
+		}
+
+		release_msglist(queue,firstrec);		
+	}
+
+	pthread_mutex_unlock(&queue->mutex);
 }

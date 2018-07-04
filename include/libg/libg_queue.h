@@ -47,9 +47,9 @@ extern "C" {
  * @endcode
  *
  */
- 
- #define MSGPOOL_SIZE 256
- 
+
+#define MSGPOOL_SIZE 256
+
 struct threadmsg{
 	/**
 	 * Holds the data.
@@ -196,6 +196,8 @@ long thread_queue_length( struct threadqueue *queue );
  */
 int thread_queue_cleanup(struct threadqueue *queue, int freedata);
 
+//清除队列中的节点，并释放节点中data指针，并不影响get的阻塞
+void thread_queue_release_all(struct threadqueue * queue);
 #ifdef __cplusplus
 }
 #endif

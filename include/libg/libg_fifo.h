@@ -28,5 +28,7 @@ unsigned int gfifo_out_block(struct gfifo *fifo, void *buf, unsigned int len);
 
 void gfifo_reset(struct gfifo *fifo);
 
+void gfifo_backoff(struct gfifo *fifo, int backoff);
+
 #endif
 

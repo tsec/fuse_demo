@@ -13,7 +13,7 @@ int libg_thread_sync_wait(struct libg_thread_sync *sync)
 {
 	pthread_mutex_lock(&(sync->mutex));
 	sync->cnt--;
-	
+
 	if(sync->cnt != 0)
 	{
 		pthread_cond_wait(&(sync->cond), &(sync->mutex));
